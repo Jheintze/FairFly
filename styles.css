@@ -59,6 +59,8 @@ section > p {
   font-weight: 700;
 }
 
+/* Hero */
+
 #hero {
   min-height: 100vh;
   background-image: url("images/hero.webp");
@@ -77,6 +79,9 @@ section > p {
 #hero p {
   font-size: 1.5rem;
 }
+
+/* Trips */
+
 #trips {
   padding: 5rem 2rem;
 }
@@ -104,7 +109,45 @@ section > p {
 .card-content {
   padding: 1.5rem;
 }
-
 .card-content h3 {
   margin-bottom: 0.5rem;
+}
+
+/* Book Your Trip */
+
+
+#book-your-trip {
+  min-height: 100vh;
+  background-image: url("images/CTA.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 6rem;
+
+  text-align: center;
+}
+
+.cta-content {
+  text-align: center;
+  color: white;
+}
+
+.cta-content h2 {
+  margin-bottom: 1.5rem;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.cta-content a {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background-color: var(--text);
+  color: white;
+  font-weight: 700;
+  border-radius: 4px;
 }
