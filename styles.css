@@ -42,8 +42,37 @@ a {
 a:hover {
   color: var(--primary);
 }
+h1 {
+  font-size: 4rem;
+}
+h2{
+  font-size: 3rem;
+  text-align:center;
+}
 
+section > p {
+  text-align: center;
+}
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
+}
+
+#hero{
+  min-height: 70vh;
+  background-image: url("images/hero.webp");
+  background-size:cover;
+   background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+   text-align: center;
+}
+
+#hero p {
+  font-size: 1.5rem;
 }
