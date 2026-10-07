@@ -1,90 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>FairFly</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-     <a class="logo" href="#hero">FairFly</a>
-        <nav>
-            <ul>
-                <li><a href="#trips">Trips</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#book-your-trip">Book your trip</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+      <a class="logo" href="#hero">FairFly</a>
+      <nav>
+        <ul>
+          <li><a href="#trips">Trips</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#book-your-trip">Book your trip</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
     </header>
     <main>
-  <section id="hero">
-    <h1>FairFly</h1>
-    <p>Travel further. Travel better.</p>
-</section>
-   <section id="trips">
-    <h2>Trips</h2>
-    <p>Choose your destination</p>
-    <article>
-        <img src="images/turkey.webp" alt="mosque and public place with trees in turkey">
-        <h3>Turkey</h3>
-        <p>Experience the rich history and culture of Turkey</p>
-    </article>
-    <article>
-        <img src="images/japan.webp" alt="snow capped mountain with city in front and japanese building in foreground">
-            <h3>Japan</h3>
-        <p>Description of Trip 2</p>
-    </article>
-    <article>
-        <img src="images/peru.webp" alt="green mountains in peru with a big lama in the foreground">
-        <h3>Peru</h3>
-        <p>Description of Trip 3</p>
-    </article>
-    </article>
-    <article>
-        <img src="images/namibia.webp" alt="dusty road in namibia with zebras crossing">
-        <h3>Namibia</h3>
-        <p>Description of Trip 4</p>
-    </article>
-    <article>
-        <img src="images/sweden.webp" alt="Aurora borealis over a Swedish landscape with a tent in the snow">
-        <h3>Sweden</h3>
-        <p>Description of Trip 5</p>
-    </article>
-    <article>
-        <img src="images/vietnam.webp" alt="green mountains and a bay with boats in vietnam">
-        <h3>Vietnam</h3>
-        <p>Description of Trip 6</p>
-    </article>
-   </section>
-   <section id="testimonials">
-    <h2>Testimonials</h2>
-    <p>What our customers say</p>
-    <article>
-        <img src="images/kate simmins.webp" alt="image of a young woman with dark hair">
-        <h3>Kate Simmins</h3>
-        <p>I had a wonderful experience with FairFly. The trip was well organized and the guide was very knowledgeable.</p>
-    </article>
-    <article>
-        <img src="images/ales dusa.webp" alt="black and white image of an old man">
-        <h3>Ales Dusa</h3>
-        <p>I had a wonderful experience with FairFly. The trip was well organized and the guide was very knowledgeable.</p>
-    </article>
-      <article>
-        <img src="images/brooke balentine.webp" alt="image of a smiling young woman with blonde hair and glasses">
-        <h3>Brooke Balentine</h3>
-        <p>I had a wonderful experience with FairFly. The trip was well organized and the guide was very knowledgeable.</p>
-    </article>
-   </section>
-   <section id="book-your-trip">
-    <img src="images/CTA.webp" alt="scenic image of 3 women hiking trough green hills towards the sea">
-    <h2>Book your trip</h2>
-    <a href="#trips">Select your destination</a>
-   </section>
+      <section id="hero">
+        <h1>FairFly</h1>
+        <p>Travel further. Travel better.</p>
+      </section>
+      <section id="trips">
+        <h2>Trips</h2>
+        <p>Choose your destination</p>
+        <div class="trips-grid">
+          <article>
+            <img
+              src="images/turkey.webp"
+              alt="mosque and public place with trees in turkey"
+            />
+            <div class="card-content">
+              <h3>Turkey</h3>
+              <p>Experience the rich history and culture of Turkey</p>
+            </div>
+          </article>
+          <article>
+            <img
+              src="images/japan.webp"
+              alt="snow capped mountain with city in front and japanese building in foreground"
+            />
+            <div class="card-content">
+              <h3>Japan</h3>
+              <p>Description of Trip 2</p>
+            </div>
+          </article>
+          <article>
+            <img
+              src="images/peru.webp"
+              alt="green mountains in peru with a big lama in the foreground"
+            />
+            <div class="card-content">
+              <h3>Peru</h3>
+              <p>Description of Trip 3</p>
+            </div>
+          </article>
+          <article>
+            <img
+              src="images/namibia.webp"
+              alt="dusty road in namibia with zebras crossing"
+            />
+            <div class="card-content">
+              <h3>Namibia</h3>
+              <p>Description of Trip 4</p>
+            </div>
+          </article>
+          <article>
+            <img
+              src="images/sweden.webp"
+              alt="Aurora borealis over a Swedish landscape with a tent in the snow"
+            />
+            <div class="card-content">
+              <h3>Sweden</h3>
+              <p>Description of Trip 5</p>
+            </div>
+          </article>
+          <article>
+            <img
+              src="images/vietnam.webp"
+              alt="green mountains and a bay with boats in vietnam"
+            />
+            <div class="card-content">
+              <h3>Vietnam</h3>
+              <p>Description of Trip 6</p>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section id="testimonials">
+        <h2>Testimonials</h2>
+        <p>What our customers say</p>
+        <article>
+          <img
+            src="images/kate simmins.webp"
+            alt="image of a young woman with dark hair"
+          />
+          <h3>Kate Simmins</h3>
+          <p>
+            I had a wonderful experience with FairFly. The trip was well
+            organized and the guide was very knowledgeable.
+          </p>
+        </article>
+        <article>
+          <img
+            src="images/ales dusa.webp"
+            alt="black and white image of an old man"
+          />
+          <h3>Ales Dusa</h3>
+          <p>
+            I had a wonderful experience with FairFly. The trip was well
+            organized and the guide was very knowledgeable.
+          </p>
+        </article>
+        <article>
+          <img
+            src="images/brooke balentine.webp"
+            alt="image of a smiling young woman with blonde hair and glasses"
+          />
+          <h3>Brooke Balentine</h3>
+          <p>
+            I had a wonderful experience with FairFly. The trip was well
+            organized and the guide was very knowledgeable.
+          </p>
+        </article>
+      </section>
+      <section id="book-your-trip">
+        <img
+          src="images/CTA.webp"
+          alt="scenic image of 3 women hiking trough green hills towards the sea"
+        />
+        <h2>Book your trip</h2>
+        <a href="#trips">Select your destination</a>
+      </section>
     </main>
     <footer id="contact">
-        <p>&copy; 2026 FairFly</p>
+      <p>&copy; 2026 FairFly</p>
     </footer>
-</body>
+  </body>
 </html>
