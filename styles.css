@@ -8,7 +8,7 @@
   --primary: #2a9d8f;
   --text: #12343b;
   --background: #fafaf7;
-  --section-background: #eef6f4;
+  --white: #ffffff;
 }
 
 body {
@@ -26,9 +26,13 @@ header {
   padding: 1rem 2rem;
   position: sticky;
   top: 0;
-  background-color:#fafaf7;;
+  background-color:var(--background);
 }
-
+footer{
+   padding: 1.5rem;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
 ul {
   list-style: none;
   display: flex;
@@ -96,8 +100,7 @@ section > p {
   margin: 0 auto;
 }
 .trips-grid article {
-  background-color: white;
-
+  background-color: var(--white);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -114,7 +117,6 @@ section > p {
 }
 
 /* Book Your Trip */
-
 
 #book-your-trip {
   min-height: 100vh;
@@ -134,12 +136,11 @@ section > p {
 
 .cta-content {
   text-align: center;
-  color: white;
+  color: var(--white);
 }
 
 .cta-content h2 {
   margin-bottom: 1.5rem;
-  color: white;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
@@ -147,7 +148,40 @@ section > p {
   display: inline-block;
   padding: 1rem 2.5rem;
   background-color: var(--text);
-  color: white;
   font-weight: 700;
   border-radius: 4px;
+  color: var(--white);
+}
+
+/* Testimonials */
+
+#testimonials {
+  padding: 6rem 2rem;
+}
+#testimonials > h2 {
+  margin-bottom: 5rem;
+}
+.testimonials-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 7rem;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.testimonials-container article {
+  max-width: 350px;
+  text-align: center;
+}
+
+.testimonials-container img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 2rem;
+}
+
+.testimonials-container h3 {
+  margin-bottom: 0.75rem;
 }
