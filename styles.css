@@ -48,7 +48,8 @@ a:hover {
   color: var(--primary);
 }
 h1 {
-  font-size: 4rem;
+  font-size: 5rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 h2 {
   font-size: 3rem;
@@ -59,10 +60,12 @@ section > p {
   text-align: center;
 }
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
 }
-
+.logo span {
+  color: var(--accent);
+}
 /* Hero */
 
 #hero {
@@ -81,9 +84,13 @@ section > p {
 }
 
 #hero p {
-  font-size: 1.5rem;
+   font-size: 1.75rem;
+  margin-top: 0.75rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
-
+#hero span {
+  color: var(--accent);
+}
 /* Trips */
 
 #trips {
