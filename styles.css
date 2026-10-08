@@ -154,7 +154,7 @@ section > p {
 .cta-content h2 {
   margin-bottom: 1.5rem;
   font-size: 3.5rem;
-   text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
 }
 
 .cta-content a {
@@ -204,4 +204,25 @@ section > p {
 
 .testimonials-container h3 {
   margin-bottom: 0.75rem;
+}
+@media (max-width: 1050px) {
+  .trips-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonials-container {
+    gap: 3rem;
+  }
+}
+@media (max-width: 750px){
+  .trips-grid{
+    grid-template-columns: 1fr;
+  }
+  .testimonials-container{
+    flex-direction:column;
+    align-items:center;
+  }
+   footer {
+    padding: 1rem;
+  }
 }
