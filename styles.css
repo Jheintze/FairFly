@@ -26,12 +26,13 @@ header {
   padding: 1rem 2rem;
   position: sticky;
   top: 0;
-  background-color:var(--background);
+  background-color: var(--background);
 }
-footer{
-   padding: 1.5rem;
+
+footer {
+  padding: 1.5rem;
   text-align: center;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #e5e5e5;
 }
 ul {
   list-style: none;
@@ -39,7 +40,9 @@ ul {
   justify-content: space-between;
   gap: 2rem;
 }
-
+ul a {
+  font-weight: 600;
+}
 a {
   color: var(--text);
   text-decoration: none;
@@ -61,11 +64,10 @@ section > p {
 }
 .logo {
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
-.logo span {
-  color: var(--accent);
-}
+
 /* Hero */
 
 #hero {
@@ -84,13 +86,11 @@ section > p {
 }
 
 #hero p {
-   font-size: 1.75rem;
+  font-size: 1.75rem;
   margin-top: 0.75rem;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
-#hero span {
-  color: var(--accent);
-}
+
 /* Trips */
 
 #trips {
@@ -98,7 +98,7 @@ section > p {
 }
 
 .trips-grid {
-   display: grid;
+  display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 5rem;
   max-width: 1600px;
@@ -108,6 +108,7 @@ section > p {
   background-color: var(--white);
   border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 4px 18px rgba(18, 52, 59, 0.1);
 }
 .trips-grid img {
   width: 100%;
@@ -115,7 +116,7 @@ section > p {
   object-fit: cover;
 }
 .trips-intro {
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 .card-content {
   padding: 1.5rem;
@@ -124,7 +125,7 @@ section > p {
   margin-bottom: 0.5rem;
 }
 .card-content p:last-child {
-  margin-top:0.5rem;
+  margin-top: 0.5rem;
   font-weight: 700;
 }
 /* Book Your Trip */
@@ -152,7 +153,8 @@ section > p {
 
 .cta-content h2 {
   margin-bottom: 1.5rem;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  font-size: 3.5rem;
+   text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
 }
 
 .cta-content a {
@@ -160,17 +162,24 @@ section > p {
   padding: 1rem 2.5rem;
   background-color: var(--text);
   font-weight: 700;
+  font-size: 1.1rem;
   border-radius: 4px;
   color: var(--white);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
-
+.cta-content a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
 /* Testimonials */
 
 #testimonials {
   padding: 6rem 2rem;
 }
 #testimonials > h2 {
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
 }
 .testimonials-container {
   display: flex;
