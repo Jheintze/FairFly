@@ -23,6 +23,5 @@ This project was created as part of the Mayerfeld AI-Assisted Frontend Developer
 - HTML5
 - CSS3
 
-## Status
 
-This project is currently under development.
+
