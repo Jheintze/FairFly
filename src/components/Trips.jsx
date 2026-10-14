@@ -48,6 +48,9 @@ export default function Trips() {
                     })
                   }
                 />
+                <p>
+                  Total price: € {trip.price * (counts[trip.id] ?? 1).toLocaleString("en-GB")}
+                </p>
               </div>
             </article>
           ))}
