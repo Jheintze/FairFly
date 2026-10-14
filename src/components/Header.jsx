@@ -1,19 +1,37 @@
 export default function Header() {
   return (
-    <header>
-      <a className="logo" href="#hero">
+    <header className="sticky top-0 flex items-center justify-between bg-(--background) px-8 py-4">
+      <a
+        className="text-[1.75rem] font-extrabold tracking-[-0.03em] text-(--text) no-underline hover:text-(--primary)"
+        href="#hero"
+      >
         FairFly
       </a>
       <nav>
-        <ul>
+        <ul className="flex list-none justify-between gap-8">
           <li>
-            <a href="#trips">Trips</a>
+            <a
+              className="font-semibold text-(--text) no-underline hover:text-(--primary)"
+              href="#trips"
+            >
+              Trips
+            </a>
           </li>
           <li>
-            <a href="#book-your-trip">Book your trip</a>
+            <a
+              className="font-semibold text-(--text) no-underline hover:text-(--primary)"
+              href="#book-your-trip"
+            >
+              Book your trip
+            </a>
           </li>
           <li>
-            <a href="#testimonials">Testimonials</a>
+            <a
+              className="font-semibold text-(--text) no-underline hover:text-(--primary)"
+              href="#testimonials"
+            >
+              Testimonials
+            </a>
           </li>
         </ul>
       </nav>

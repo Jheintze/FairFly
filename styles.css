@@ -19,6 +19,7 @@ body {
   min-height: 100vh;
 }
 
+/* Header styles moved to Tailwind in Header.jsx — delete after verifying.
 header {
   display: flex;
   justify-content: space-between;
@@ -28,12 +29,14 @@ header {
   top: 0;
   background-color: var(--background);
 }
+*/
 
 footer {
   padding: 1.5rem;
   text-align: center;
   border-top: 1px solid #e5e5e5;
 }
+/* Header nav list styles moved to Tailwind in Header.jsx — delete after verifying.
 ul {
   list-style: none;
   display: flex;
@@ -43,6 +46,7 @@ ul {
 ul a {
   font-weight: 600;
 }
+*/
 a {
   color: var(--text);
   text-decoration: none;
@@ -62,11 +66,13 @@ h2 {
 section > p {
   text-align: center;
 }
+/* Logo styles moved to Tailwind in Header.jsx — delete after verifying.
 .logo {
   font-size: 1.75rem;
   font-weight: 800;
   letter-spacing: -0.03em;
 }
+*/
 
 /* Hero */
 
