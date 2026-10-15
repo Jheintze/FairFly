@@ -1,12 +1,12 @@
-export default function BookYourTrips() {
+export default function PlanYourTripCTA() {
   return (
     <section
-      id="book-your-trip"
+      id="plan-your-trip"
       className="flex min-h-screen flex-col items-center justify-start bg-[url(../images/CTA.webp)] bg-cover bg-center bg-no-repeat pt-24 text-center"
     >
       <div className="text-center text-(--white)">
         <h2 className="mb-6 text-[3.5rem] font-bold [text-shadow:0_3px_10px_rgba(0,0,0,0.6)]">
-          Plan your next adventure
+          Ready for your next adventure ?
         </h2>
         <a
           href="#trips"

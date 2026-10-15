@@ -20,9 +20,9 @@ export default function Header() {
           <li>
             <a
               className="font-semibold text-(--text) no-underline hover:text-(--primary)"
-              href="#book-your-trip"
+              href="#plan-your-trip"
             >
-              Book your trip
+              Plan your trip
             </a>
           </li>
           <li>
