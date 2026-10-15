@@ -9,13 +9,13 @@ export default function Testimonials() {
           <img
             src="images/kate simmins.webp"
             alt="image of a young woman with dark hair"
-            className="mb-8 h-50 w-50 rounded-full object-cover"
+            className="mx-auto mb-8 h-50 w-50 rounded-full object-cover"
           />
           <h3 className="mb-3 text-[1.17em] font-bold">Kate Simmins</h3>
           <blockquote>
-            Our trip to Japan was incredible from start to finish. FairFly made
+            &quot;Our trip to Japan was incredible from start to finish. FairFly made
             everything easy, and every part of the journey was perfectly
-            organized.
+            organized.&quot;
           </blockquote>
         </article>
 
@@ -23,13 +23,13 @@ export default function Testimonials() {
           <img
             src="images/ales dusa.webp"
             alt="black and white image of an old man"
-            className="mb-8 h-50 w-50 rounded-full object-cover"
+            className="mx-auto mb-8 h-50 w-50 rounded-full object-cover"
           />
           <h3 className="mb-3 text-[1.17em] font-bold">Ales Dusa</h3>
           <blockquote>
-            FairFly took care of everything and made the whole experience
+            &quot;FairFly took care of everything and made the whole experience
             completely stress-free. I was impressed by the organization and
-            would book again.
+            would book again.&quot;
           </blockquote>
         </article>
 
@@ -37,12 +37,12 @@ export default function Testimonials() {
           <img
             src="images/brooke balentine.webp"
             alt="image of a smiling young woman with blonde hair and glasses"
-            className="mb-8 h-50 w-50 rounded-full object-cover"
+            className="mx-auto mb-8 h-50 w-50 rounded-full object-cover"
           />
           <h3 className="mb-3 text-[1.17em] font-bold">Brooke Balentine</h3>
           <blockquote>
-            Everything about our trip was fantastic. FairFly made the experience
-            simple and enjoyable, and we came home with some amazing memories.
+            &quot;Everything about our trip was fantastic. FairFly made the experience
+            simple and enjoyable, and we came home with some amazing memories.&quot;
           </blockquote>
         </article>
       </div>

@@ -7,6 +7,10 @@
   --white: #ffffff;
 }
 
+html {
+scroll-behavior: smooth;
+}
+
 body {
   font-family: Arial, sans-serif;
   color: var(--text);
