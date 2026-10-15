@@ -12,7 +12,7 @@ export default function PlanYourTripCTA() {
           href="#trips"
           className="inline-block rounded bg-(--text) px-10 py-4 text-[1.1rem] font-bold text-(--white) no-underline transition-[transform,box-shadow] duration-200 ease-[ease] hover:-translate-y-0.5 hover:text-(--white) hover:shadow-[0_6px_16px_rgba(0,0,0,0.25)]"
         >
-          Book your trip
+          Explore our trips
         </a>
       </div>
     </section>
