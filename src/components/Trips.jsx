@@ -55,7 +55,8 @@ export default function Trips() {
 
                   <div className="mt-auto border-t border-(--text)/15 pt-3">
                     <p className="text-sm font-semibold">
-                      {trip.duration} days · €{trip.price.toLocaleString("en-GB")} per person
+                      {trip.duration} days · €
+                      {trip.price.toLocaleString("en-GB")} per person
                     </p>
                   </div>
 
@@ -72,6 +73,14 @@ export default function Trips() {
                     <p className="border-t border-(--text)/15 pt-3 text-sm font-bold">
                       Total price: €{totalPrice.toLocaleString("en-GB")}
                     </p>
+                    <button
+                      onClick={() => {
+                        // Booking modal logic goes here later
+                      }}
+                      className="mt-1 ml-auto block rounded bg-(--text) px-4 py-2 text-sm font-bold text-(--white) transition-[transform,box-shadow] duration-200 ease-[ease] hover:-translate-y-0.5 hover:text-(--white) hover:shadow-[0_6px_16px_rgba(0,0,0,0.25)]"
+                    >
+                      Book this trip
+                    </button>
                   </div>
                 </div>
               </article>
