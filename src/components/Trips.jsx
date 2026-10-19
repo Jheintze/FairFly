@@ -48,12 +48,15 @@ export default function Trips() {
                 className="flex h-full flex-col overflow-hidden rounded-lg bg-(--white) shadow-[0_4px_18px_rgba(18,52,59,0.1)]"
               >
                 <div className="relative h-56 sm:h-60">
-                  <Image
-                    src={trip.image}
-                    alt={trip.title}
-                    fill
-                    className="object-cover"
-                  />
+                  <div className="relative h-56 sm:h-60">
+                    <Image
+                      src={trip.image}
+                      alt={trip.title}
+                      fill
+                      sizes="(max-width: 750px) 100vw, (max-width: 1050px) 50vw, 33vw"
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
                 <div className="flex flex-1 flex-col p-5">
                   <h3 className="text-xl font-bold">{trip.title}</h3>
