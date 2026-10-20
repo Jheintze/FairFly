@@ -2,12 +2,15 @@
 
 import { useState } from "react";
 import AuthModal from "./AuthModal";
+import { authClient } from "@/lib/auth/client";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState("SIGN_IN");
 
+  const { data: session, isPending } = authClient.useSession();
+ 
   return (
     <header className="sticky top-0 flex items-center justify-between bg-(--background) px-8 py-4">
       <a
@@ -42,30 +45,43 @@ export default function Header() {
               Testimonials
             </a>
           </li>
-          <li>
-            <button
-              className="font-semibold text-(--text) hover:text-(--primary)"
-              onClick={() => {
-                setAuthMode("SIGN_IN");
-                setModalOpen(true);
-              }}
-              aria-label="Toggle Login/Signup Modal"
-            >
-              Log in
-            </button>
-          </li>{" "}
-          <li>
-            <button
-              className="font-semibold text-(--text) hover:text-(--primary)"
-              onClick={() => {
-                setAuthMode("SIGN_UP");
-                setModalOpen(true);
-              }}
-              aria-label="Toggle Login/Signup Modal"
-            >
-              Sign up
-            </button>
-          </li>
+          {session ? (
+            <li>
+              <button
+                className="font-semibold text-(--text) hover:text-(--primary)"
+                onClick={async () => {
+                  await authClient.signOut();
+                }}
+              >
+                Log out
+              </button>
+            </li>
+          ) : (
+            <>
+              <li>
+                <button
+                  className="font-semibold text-(--text) hover:text-(--primary)"
+                  onClick={() => {
+                    setAuthMode("SIGN_IN");
+                    setModalOpen(true);
+                  }}
+                >
+                  Log in
+                </button>
+              </li>
+              <li>
+                <button
+                  className="font-semibold text-(--text) hover:text-(--primary)"
+                  onClick={() => {
+                    setAuthMode("SIGN_UP");
+                    setModalOpen(true);
+                  }}
+                >
+                  Sign up
+                </button>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
       <button
