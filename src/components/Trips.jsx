@@ -1,16 +1,42 @@
 "use client";
 
-import trips from "../data/trips.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TravelerStepper } from "./TravelerStepper.jsx";
 import Image from "next/image";
 
 export default function Trips() {
+  const [trips, setTrips] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [region, setRegion] = useState("All");
   const [counts, setCounts] = useState({});
 
+  useEffect(() => {
+    async function fetchTrips() {
+      try {
+        const response = await fetch("/api/trips");
+
+        if (!response.ok) {
+          throw new Error("Failed to load trips.");
+        }
+
+        const data = await response.json();
+        setTrips(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchTrips();
+  }, []);
+
   return (
     <section id="trips" className="px-8 py-20">
+      {loading && <p className="text-center">Loading trips...</p>}
+
+      {error && <p className="text-center">{error}</p>}
       <h2 className="mb-3 text-center text-[3rem] font-bold">Trips</h2>
       <p className="mb-12 text-center">
         All packages include flights, accommodation and selected activities.
@@ -34,7 +60,8 @@ export default function Trips() {
           <option value="South America">South America</option>
         </select>
       </div>
-
+      
+         {!loading && !error && (
       <div className="mx-auto grid max-w-[1600px] grid-cols-3 gap-14 max-[1050px]:grid-cols-2 max-[750px]:grid-cols-1">
         {trips
           .filter((trip) => trip.region === region || region === "All")
@@ -96,6 +123,7 @@ export default function Trips() {
             );
           })}
       </div>
+         )}
     </section>
   );
 }
