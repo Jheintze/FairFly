@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { AuthView } from "@neondatabase/auth-ui";
 
-export default function AuthModal({ isOpen, onClose }) {
-  const [mode, setMode] = useState("SIGN_IN");
+export default function AuthModal({ isOpen, onClose, mode, onModeChange }) {
 
   if (!isOpen) return null;
 
@@ -14,7 +13,7 @@ export default function AuthModal({ isOpen, onClose }) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-xl"
+        className="auth-modal relative w-full max-w-md rounded-2xl bg-white p-6 shadow-xl"
         onClick={(event) => event.stopPropagation()}
       >
         <button
@@ -29,7 +28,7 @@ export default function AuthModal({ isOpen, onClose }) {
         <div className="mb-6 flex gap-3 border-b">
           <button
             type="button"
-            onClick={() => setMode("SIGN_IN")}
+            onClick={() => onModeChange("SIGN_IN")}
             className={`flex-1 pb-3 font-semibold ${
               mode === "SIGN_IN"
                 ? "border-b-2 border-(--primary) text-(--primary)"
@@ -41,7 +40,7 @@ export default function AuthModal({ isOpen, onClose }) {
 
           <button
             type="button"
-            onClick={() => setMode("SIGN_UP")}
+            onClick={() => onModeChange("SIGN_UP")}
             className={`flex-1 pb-3 font-semibold ${
               mode === "SIGN_UP"
                 ? "border-b-2 border-(--primary) text-(--primary)"

@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import AuthModal from "./AuthModal";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState("SIGN_IN");
 
   return (
     <header className="sticky top-0 flex items-center justify-between bg-(--background) px-8 py-4">
@@ -39,6 +42,30 @@ export default function Header() {
               Testimonials
             </a>
           </li>
+          <li>
+            <button
+              className="font-semibold text-(--text) hover:text-(--primary)"
+              onClick={() => {
+                setAuthMode("SIGN_IN");
+                setModalOpen(true);
+              }}
+              aria-label="Toggle Login/Signup Modal"
+            >
+              Log in
+            </button>
+          </li>{" "}
+          <li>
+            <button
+              className="font-semibold text-(--text) hover:text-(--primary)"
+              onClick={() => {
+                setAuthMode("SIGN_UP");
+                setModalOpen(true);
+              }}
+              aria-label="Toggle Login/Signup Modal"
+            >
+              Sign up
+            </button>
+          </li>
         </ul>
       </nav>
       <button
@@ -69,6 +96,12 @@ export default function Header() {
           </ul>
         </nav>
       )}
+      <AuthModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        mode={authMode}
+        onModeChange={setAuthMode}
+      />
     </header>
   );
 }

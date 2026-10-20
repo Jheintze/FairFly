@@ -19,3 +19,7 @@ body {
   line-height: 1.5;
   min-height: 100vh;
 }
+
+.auth-modal [data-slot="card-footer"]:has(a[href^="/auth/"]) {
+  display: none !important;
+}
