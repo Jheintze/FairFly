@@ -15,6 +15,13 @@ export default function Header() {
   const solid = scrolled || menuOpen;
 
   useEffect(() => {
+    if (session) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setModalOpen(false);
+    }
+  }, [session]);
+
+  useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
