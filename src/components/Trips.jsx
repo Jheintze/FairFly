@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { TravelerStepper } from "./TravelerStepper.jsx";
 import Image from "next/image";
+import BookingModal from "./BookingModal.jsx";
 
 const REGIONS = ["All", "Asia", "Europe", "Africa", "South America"];
 
@@ -12,6 +13,7 @@ export default function Trips() {
   const [error, setError] = useState(null);
   const [region, setRegion] = useState("All");
   const [counts, setCounts] = useState({});
+  const [selectedTrip, setSelectedTrip] = useState(null);
 
   useEffect(() => {
     async function fetchTrips() {
@@ -153,9 +155,7 @@ export default function Trips() {
                     </p>
                     <button
                       type="button"
-                      onClick={() => {
-                        // Booking modal logic goes here later
-                      }}
+                      onClick={() => setSelectedTrip(trip)}
                       className="mt-1 w-full cursor-pointer rounded-full bg-ink px-4 py-3 text-sm font-semibold text-paper transition hover:bg-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-clay/60 focus-visible:ring-offset-2"
                     >
                       Book this trip
@@ -167,6 +167,16 @@ export default function Trips() {
           })}
         </div>
       )}
+      <BookingModal
+        key={selectedTrip?.id ?? "closed"}
+        isOpen={selectedTrip !== null}
+        onClose={() => setSelectedTrip(null)}
+        trip={selectedTrip}
+        travelerCount={selectedTrip ? (counts[selectedTrip.id] ?? 1) : 1}
+        totalPrice={
+          selectedTrip ? selectedTrip.price * (counts[selectedTrip.id] ?? 1) : 0
+        }
+      />
     </section>
   );
 }
