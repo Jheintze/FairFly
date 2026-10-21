@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AuthModal from "./AuthModal";
 import { authClient } from "@/lib/auth/client";
 
@@ -12,7 +12,7 @@ export default function Header() {
   const { data: session } = authClient.useSession();
  
   return (
-    <header className="sticky top-0 flex items-center justify-between bg-(--background) px-8 py-4">
+    <header className="sticky top-0 z-40 flex items-center justify-between bg-(--background) px-8 py-4">
       <a
         className="text-[1.75rem] font-extrabold tracking-[-0.03em] text-(--text) no-underline hover:text-(--primary)"
         href="#hero"
