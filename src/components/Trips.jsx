@@ -87,7 +87,7 @@ export default function Trips() {
           {[1, 2, 3].map((item) => (
             <div
               key={item}
-              className="h-[28rem] animate-pulse rounded-3xl bg-sand"
+              className="h-112 animate-pulse rounded-3xl bg-sand"
             />
           ))}
         </div>
@@ -110,7 +110,7 @@ export default function Trips() {
                 key={trip.id}
                 className="group flex h-full flex-col overflow-hidden rounded-3xl bg-paper shadow-[0_16px_40px_rgba(23,36,31,0.08)] ring-1 ring-line/80 transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(23,36,31,0.14)]"
               >
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-4/3 overflow-hidden">
                   <Image
                     src={trip.image}
                     alt={trip.title}
@@ -118,7 +118,7 @@ export default function Trips() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover transition duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-ink/55 via-transparent to-transparent" />
                   <span className="absolute left-4 top-4 rounded-full bg-paper/92 px-3 py-1 text-xs font-semibold tracking-wide text-ink backdrop-blur-sm">
                     {trip.region}
                   </span>

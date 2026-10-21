@@ -2,11 +2,11 @@ export default function PlanYourTripCTA() {
   return (
     <section
       id="plan-your-trip"
-      className="relative flex min-h-[28rem] scroll-mt-24 flex-col items-center justify-center overflow-hidden bg-[url('/images/CTA.webp')] bg-cover bg-center bg-no-repeat px-5 py-24 text-center sm:min-h-[34rem] sm:px-8"
+      className="relative flex min-h-112 scroll-mt-24 flex-col items-center justify-center overflow-hidden bg-[url('/images/CTA.webp')] bg-cover bg-center bg-no-repeat px-5 py-24 text-center sm:min-h-136 sm:px-8"
     >
       <div className="absolute inset-0 bg-ink/55" aria-hidden="true" />
       <div
-        className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-ink/20"
+        className="absolute inset-0 bg-linear-to-t from-ink/50 via-transparent to-ink/20"
         aria-hidden="true"
       />
 

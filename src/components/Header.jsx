@@ -113,12 +113,12 @@ export default function Header() {
           <span
             className={`absolute left-3 right-3 h-0.5 rounded-full transition-all duration-200 ${
               solid ? "bg-ink" : "bg-paper"
-            } ${menuOpen ? "top-1/2 rotate-45" : "top-[16px]"}`}
+            } ${menuOpen ? "top-1/2 rotate-45" : "top-4"}`}
           />
           <span
             className={`absolute left-3 right-3 h-0.5 rounded-full transition-all duration-200 ${
               solid ? "bg-ink" : "bg-paper"
-            } ${menuOpen ? "top-1/2 -rotate-45" : "top-[26px]"}`}
+            } ${menuOpen ? "top-1/2 -rotate-45" : "top-6.5"}`}
           />
         </button>
       </div>

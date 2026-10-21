@@ -1,16 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, } from "react";
 import { createPortal } from "react-dom";
 import { AuthView } from "@neondatabase/auth-ui";
 
 export default function AuthModal({ isOpen, onClose, mode, onModeChange }) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  
   useEffect(() => {
     if (!isOpen) return undefined;
 
@@ -30,11 +25,11 @@ export default function AuthModal({ isOpen, onClose, mode, onModeChange }) {
     };
   }, [isOpen, onClose]);
 
-  if (!mounted || !isOpen) return null;
+  if (!isOpen) return null;
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[70] flex items-center justify-center bg-ink/55 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-70 flex items-center justify-center bg-ink/55 p-4 backdrop-blur-sm"
       onClick={onClose}
       role="presentation"
     >

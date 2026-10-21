@@ -5,11 +5,11 @@ export default function Hero() {
       className="relative flex min-h-svh items-end overflow-hidden bg-[url('/images/hero.webp')] bg-cover bg-center bg-no-repeat pb-16 pt-32 sm:items-center sm:pb-24 sm:pt-28"
     >
       <div
-        className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/45 to-ink/15"
+        className="absolute inset-0 bg-linear-to-r from-ink/80 via-ink/45 to-ink/15"
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-ink/25"
+        className="absolute inset-0 bg-linear-to-t from-ink/55 via-transparent to-ink/25"
         aria-hidden="true"
       />
 
