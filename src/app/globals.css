@@ -1,11 +1,27 @@
 @import "tailwindcss";
 @import "@neondatabase/auth-ui/tailwind";
 
+@theme {
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, "Times New Roman", serif;
+
+  --color-ink: #17241f;
+  --color-forest: #1b332c;
+  --color-pine: #2c5a4c;
+  --color-clay: #c24e1d;
+  --color-clay-dark: #9c3c14;
+  --color-linen: #f3eee4;
+  --color-sand: #e7ddce;
+  --color-paper: #fffaf3;
+  --color-muted: #5c6b64;
+  --color-line: #d6ccbc;
+}
+
 :root {
-  --primary: #2a9d8f;
-  --text: #12343b;
-  --background: #fafaf7;
-  --white: #ffffff;
+  --primary: #c24e1d;
+  --text: #17241f;
+  --background: #f3eee4;
+  --white: #fffaf3;
 }
 
 html {
@@ -13,11 +29,20 @@ html {
 }
 
 body {
-  font-family: Arial, sans-serif;
-  color: var(--text);
-  background-color: var(--background);
-  line-height: 1.5;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  color: var(--color-ink);
+  background-color: var(--color-linen);
+  line-height: 1.6;
   min-height: 100vh;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-clay) 24%, white);
+  color: var(--color-ink);
+}
+
+.font-display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
 }
 
 .auth-modal [data-slot="card-footer"]:has(a[href^="/auth/"]) {
