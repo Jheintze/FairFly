@@ -9,7 +9,7 @@ export default function Header() {
   const [modalOpen, setModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState("SIGN_IN");
 
-  const { data: session, isPending } = authClient.useSession();
+  const { data: session } = authClient.useSession();
  
   return (
     <header className="sticky top-0 flex items-center justify-between bg-(--background) px-8 py-4">
@@ -109,6 +109,46 @@ export default function Header() {
                 Testimonials
               </a>
             </li>
+            {session ? (
+              <li>
+                <button
+                  className="font-semibold text-(--text) hover:text-(--primary)"
+                  onClick={async () => {
+                    await authClient.signOut();
+                    setMenuOpen(false);
+                  }}
+                >
+                  Log out
+                </button>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <button
+                    className="font-semibold text-(--text) hover:text-(--primary)"
+                    onClick={() => {
+                      setAuthMode("SIGN_IN");
+                      setModalOpen(true);
+                      setMenuOpen(false);
+                    }}
+                  >
+                    Log in
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="font-semibold text-(--text) hover:text-(--primary)"
+                    onClick={() => {
+                      setAuthMode("SIGN_UP");
+                      setModalOpen(true);
+                      setMenuOpen(false);
+                    }}
+                  >
+                    Sign up
+                  </button>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
       )}
