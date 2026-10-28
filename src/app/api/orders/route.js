@@ -1,4 +1,3 @@
-
 import { auth } from "@/lib/auth/server";
 import { sql } from "@/lib/db";
 
@@ -22,10 +21,7 @@ export async function POST(request) {
     const departureDate = body.departureDate;
 
     if (!Number.isInteger(tripId) || tripId <= 0) {
-      return Response.json(
-        { error: "Invalid trip." },
-        { status: 400 },
-      );
+      return Response.json({ error: "Invalid trip." }, { status: 400 });
     }
 
     if (!Number.isInteger(quantity) || quantity < 1 || quantity > 7) {
@@ -35,7 +31,6 @@ export async function POST(request) {
       );
     }
 
-    
     const parsedDate = new Date(`${departureDate}T00:00:00.000Z`);
 
     if (
@@ -50,7 +45,6 @@ export async function POST(request) {
       );
     }
 
-
     // 3. Get the real trip price from Neon.
     const trips = await sql`
       SELECT id, price
@@ -60,10 +54,7 @@ export async function POST(request) {
     `;
 
     if (trips.length === 0) {
-      return Response.json(
-        { error: "Trip not found." },
-        { status: 404 },
-      );
+      return Response.json({ error: "Trip not found." }, { status: 404 });
     }
 
     const tripPrice = Number(trips[0].price);
@@ -81,41 +72,42 @@ export async function POST(request) {
     const totalInCents = priceInCents * quantity;
 
     // 4. Create the order and its item together.
+
     const result = await sql`
-      WITH new_order AS (
-        INSERT INTO orders (
-          user_id,
-          total_amount,
-          status
-        )
-        VALUES (
-          ${session.user.id},
-          ${totalInCents},
-          'pending'
-        )
-        RETURNING id
-      ),
-      new_item AS (
-        INSERT INTO order_items (
-          order_id,
-          trip_id,
-          price,
-          quantity,
-          departure_date
-        )
-        SELECT
-          new_order.id,
-          ${tripId},
-          ${priceInCents},
-          ${quantity},
-          ${departureDate}
-        FROM new_order
-        RETURNING order_id
-      )
-      SELECT orders.id, orders.status
-      FROM orders
-      JOIN new_item ON orders.id = new_item.order_id
-    `;
+  WITH new_order AS (
+    INSERT INTO orders (
+      user_id,
+      total_amount,
+      status
+    )
+    VALUES (
+      ${session.user.id},
+      ${totalInCents},
+      'pending'
+    )
+    RETURNING id, status
+  ),
+  new_item AS (
+    INSERT INTO order_items (
+      order_id,
+      trip_id,
+      price,
+      quantity,
+      departure_date
+    )
+    SELECT
+      new_order.id,
+      ${tripId},
+      ${priceInCents},
+      ${quantity},
+      ${departureDate}
+    FROM new_order
+    RETURNING order_id
+  )
+  SELECT new_order.id, new_order.status
+  FROM new_order
+  JOIN new_item ON new_item.order_id = new_order.id
+`;
 
     // 5. Return the new order details.
     return Response.json(
@@ -129,9 +121,6 @@ export async function POST(request) {
   } catch (error) {
     console.error("Failed to create order:", error);
 
-    return Response.json(
-      { error: "Failed to create order." },
-      { status: 500 },
-    );
+    return Response.json({ error: "Failed to create order." }, { status: 500 });
   }
 }
