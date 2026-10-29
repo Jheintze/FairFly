@@ -1,5 +1,7 @@
+
 import { auth } from "@/lib/auth/server";
 import { sql } from "@/lib/db";
+import { stripe } from "@/lib/stripe";
 
 export async function POST(request) {
   try {
@@ -21,7 +23,10 @@ export async function POST(request) {
     const departureDate = body.departureDate;
 
     if (!Number.isInteger(tripId) || tripId <= 0) {
-      return Response.json({ error: "Invalid trip." }, { status: 400 });
+      return Response.json(
+        { error: "Invalid trip." },
+        { status: 400 },
+      );
     }
 
     if (!Number.isInteger(quantity) || quantity < 1 || quantity > 7) {
@@ -31,7 +36,10 @@ export async function POST(request) {
       );
     }
 
-    const parsedDate = new Date(`${departureDate}T00:00:00.000Z`);
+    const parsedDate =
+      typeof departureDate === "string"
+        ? new Date(`${departureDate}T00:00:00.000Z`)
+        : new Date(NaN);
 
     if (
       typeof departureDate !== "string" ||
@@ -45,19 +53,23 @@ export async function POST(request) {
       );
     }
 
-    // 3. Get the real trip price from Neon.
+    // 3. Get the real trip price and title from Neon.
     const trips = await sql`
-      SELECT id, price
+      SELECT id, title, price
       FROM trips
       WHERE id = ${tripId}
       LIMIT 1
     `;
 
     if (trips.length === 0) {
-      return Response.json({ error: "Trip not found." }, { status: 404 });
+      return Response.json(
+        { error: "Trip not found." },
+        { status: 404 },
+      );
     }
 
-    const tripPrice = Number(trips[0].price);
+    const trip = trips[0];
+    const tripPrice = Number(trip.price);
 
     if (!Number.isFinite(tripPrice) || tripPrice <= 0) {
       return Response.json(
@@ -66,61 +78,108 @@ export async function POST(request) {
       );
     }
 
-    // The existing trip price is in euros.
-    // Store order amounts in integer cents.
+    // Prices in trips are stored in euros.
+    // Stripe and our order tables use integer cents.
     const priceInCents = Math.round(tripPrice * 100);
     const totalInCents = priceInCents * quantity;
 
-    // 4. Create the order and its item together.
-
+    // 4. Create the pending order and its item.
     const result = await sql`
-  WITH new_order AS (
-    INSERT INTO orders (
-      user_id,
-      total_amount,
-      status
-    )
-    VALUES (
-      ${session.user.id},
-      ${totalInCents},
-      'pending'
-    )
-    RETURNING id, status
-  ),
-  new_item AS (
-    INSERT INTO order_items (
-      order_id,
-      trip_id,
-      price,
-      quantity,
-      departure_date
-    )
-    SELECT
-      new_order.id,
-      ${tripId},
-      ${priceInCents},
-      ${quantity},
-      ${departureDate}
-    FROM new_order
-    RETURNING order_id
-  )
-  SELECT new_order.id, new_order.status
-  FROM new_order
-  JOIN new_item ON new_item.order_id = new_order.id
-`;
+      WITH new_order AS (
+        INSERT INTO orders (
+          user_id,
+          total_amount,
+          status
+        )
+        VALUES (
+          ${session.user.id},
+          ${totalInCents},
+          'pending'
+        )
+        RETURNING id, status
+      ),
+      new_item AS (
+        INSERT INTO order_items (
+          order_id,
+          trip_id,
+          price,
+          quantity,
+          departure_date
+        )
+        SELECT
+          new_order.id,
+          ${tripId},
+          ${priceInCents},
+          ${quantity},
+          ${departureDate}
+        FROM new_order
+        RETURNING order_id
+      )
+      SELECT new_order.id, new_order.status
+      FROM new_order
+      JOIN new_item ON new_item.order_id = new_order.id
+    `;
 
-    // 5. Return the new order details.
+    if (result.length === 0) {
+      throw new Error("Order was not created.");
+    }
+
+    const order = result[0];
+
+    // 5. Create a Stripe-hosted Checkout Session.
+    const origin = new URL(request.url).origin;
+
+    const checkoutSession = await stripe.checkout.sessions.create({
+      mode: "payment",
+
+      line_items: [
+        {
+          price_data: {
+            currency: "eur",
+            unit_amount: priceInCents,
+            product_data: {
+              name: trip.title,
+            },
+          },
+          quantity,
+        },
+      ],
+
+      metadata: {
+        orderId: String(order.id),
+        userId: session.user.id,
+      },
+
+      success_url:
+        `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}` +
+        `&order_id=${order.id}`,
+
+      cancel_url: `${origin}/?checkout=cancelled`,
+    });
+
+    // 6. Link the Stripe session to our database order.
+    await sql`
+      UPDATE orders
+      SET stripe_session_id = ${checkoutSession.id}
+      WHERE id = ${order.id}
+        AND user_id = ${session.user.id}
+    `;
+
+    // 7. Return the Checkout URL to the frontend.
     return Response.json(
       {
-        orderId: result[0].id,
-        status: result[0].status,
-        totalAmount: totalInCents,
+        orderId: order.id,
+        status: order.status,
+        checkoutUrl: checkoutSession.url,
       },
       { status: 201 },
     );
   } catch (error) {
-    console.error("Failed to create order:", error);
+    console.error("Failed to create checkout:", error);
 
-    return Response.json({ error: "Failed to create order." }, { status: 500 });
+    return Response.json(
+      { error: "Failed to create checkout." },
+      { status: 500 },
+    );
   }
 }
