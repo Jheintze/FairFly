@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -41,6 +42,7 @@ export default function BookingModal({
 }) {
   const [departureDate, setDepartureDate] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -65,11 +67,44 @@ export default function BookingModal({
   const today = getLocalDateString(new Date());
   const returnDate = getReturnDate(departureDate, trip.duration);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    setMessage(
-      "Your trip details are ready. Booking and payment will be available in a future update.",
-    );
+
+    setMessage("");
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tripId: trip.id,
+          quantity: travelerCount,
+          departureDate,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Could not start checkout.");
+      }
+
+      if (!data.checkoutUrl) {
+        throw new Error("No checkout URL was returned.");
+      }
+
+      window.location.assign(data.checkoutUrl);
+    } catch (error) {
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again.",
+      );
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -206,7 +241,7 @@ export default function BookingModal({
 
           {message && (
             <p
-              role="status"
+              role="alert"
               className="rounded-xl border border-line bg-sand/60 p-3 text-sm leading-relaxed text-ink"
             >
               {message}
@@ -215,13 +250,15 @@ export default function BookingModal({
 
           <button
             type="submit"
-            className="w-full cursor-pointer rounded-full bg-clay px-5 py-3.5 text-sm font-semibold text-paper transition hover:bg-clay-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-clay/60 focus-visible:ring-offset-2"
+            disabled={isSubmitting}
+            className="w-full cursor-pointer rounded-full bg-clay px-5 py-3.5 text-sm font-semibold text-paper transition hover:bg-clay-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-clay/60 focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-60"
           >
-            Continue
+            {isSubmitting ? "Preparing checkout..." : "Continue to payment"}
           </button>
 
           <p className="text-center text-xs leading-relaxed text-muted">
-            This is a trip-planning preview. No booking or payment is made.
+            You&apos;ll complete payment securely through Stripe. Your order
+            will be confirmed after successful payment.
           </p>
         </form>
       </div>
