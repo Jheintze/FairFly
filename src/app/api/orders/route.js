@@ -154,7 +154,7 @@ export async function POST(request) {
         `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}` +
         `&order_id=${order.id}`,
 
-      cancel_url: `${origin}/?checkout=cancelled`,
+      cancel_url: `${origin}/checkout/cancelled`,
     });
 
     // 6. Link the Stripe session to our database order.
