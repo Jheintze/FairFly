@@ -97,11 +97,7 @@ export default function Header() {
                   type="button"
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
                   aria-expanded={userMenuOpen}
-                  className={`flex cursor-pointer items-center gap-2.5 rounded-full border px-3 py-1.5 transition-colors ${
-                    solid
-                      ? "border-line bg-paper hover:bg-sand"
-                      : "border-paper/30 bg-forest/30 hover:bg-forest/50"
-                  }`}
+                  className="flex cursor-pointer items-center gap-2.5 rounded-full px-1.5 py-1 transition-opacity hover:opacity-80"
                 >
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-clay text-sm font-bold text-paper">
                     {initial}
