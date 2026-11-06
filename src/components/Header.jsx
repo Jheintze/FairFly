@@ -10,14 +10,25 @@ export default function Header() {
   const [modalOpen, setModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState("SIGN_IN");
   const [scrolled, setScrolled] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const { data: session } = authClient.useSession();
   const solid = scrolled || menuOpen;
+
+  const userName =
+    session?.user?.name?.trim() ||
+    session?.user?.email?.split("@")[0] ||
+    "Traveler";
+
+  const firstName = userName.split(/\s+/)[0];
+  const initial = firstName.charAt(0).toUpperCase();
 
   useEffect(() => {
     if (session) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setModalOpen(false);
+    } else {
+      setUserMenuOpen(false);
     }
   }, [session]);
 
@@ -43,6 +54,12 @@ export default function Header() {
     setAuthMode(mode);
     setModalOpen(true);
     setMenuOpen(false);
+  };
+
+  const handleSignOut = async () => {
+    setUserMenuOpen(false);
+    setMenuOpen(false);
+    await authClient.signOut();
   };
 
   return (
@@ -73,17 +90,65 @@ export default function Header() {
                 Testimonials
               </a>
             </li>
+
             {session ? (
-              <li>
+              <li className="relative">
                 <button
                   type="button"
-                  className={`${navLinkClass} cursor-pointer`}
-                  onClick={async () => {
-                    await authClient.signOut();
-                  }}
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  aria-expanded={userMenuOpen}
+                  className={`flex cursor-pointer items-center gap-2.5 rounded-full border px-3 py-1.5 transition-colors ${
+                    solid
+                      ? "border-line bg-paper hover:bg-sand"
+                      : "border-paper/30 bg-forest/30 hover:bg-forest/50"
+                  }`}
                 >
-                  Log out
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-clay text-sm font-bold text-paper">
+                    {initial}
+                  </span>
+
+                  <span className={navLinkClass}>
+                    Hi, {firstName}
+                  </span>
+
+                  <svg
+                    className={`h-3.5 w-3.5 transition-transform ${
+                      solid ? "text-ink/70" : "text-paper/80"
+                    } ${userMenuOpen ? "rotate-180" : ""}`}
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="m5 7.5 5 5 5-5"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </button>
+
+                {userMenuOpen && (
+                  <div className="absolute right-0 top-full mt-3 w-48 overflow-hidden rounded-2xl border border-line bg-paper p-2 shadow-[0_12px_35px_rgba(23,36,31,0.14)]">
+                    <div className="border-b border-line px-3 py-2">
+                      <p className="text-sm font-semibold text-ink">
+                        {userName}
+                      </p>
+                      <p className="truncate text-xs text-muted">
+                        {session.user.email}
+                      </p>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleSignOut}
+                      className="mt-1 w-full cursor-pointer rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-ink transition-colors hover:bg-sand hover:text-clay"
+                    >
+                      Log out
+                    </button>
+                  </div>
+                )}
               </li>
             ) : (
               <>
@@ -163,19 +228,32 @@ export default function Header() {
                 Testimonials
               </a>
             </li>
+
             {session ? (
-              <li className="pt-3">
-                <button
-                  type="button"
-                  className="w-full cursor-pointer rounded-full border border-line bg-paper px-4 py-3 font-semibold text-ink hover:bg-sand"
-                  onClick={async () => {
-                    await authClient.signOut();
-                    setMenuOpen(false);
-                  }}
-                >
-                  Log out
-                </button>
-              </li>
+              <>
+                <li className="mt-4 flex items-center justify-center gap-3 rounded-2xl bg-paper p-4">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-clay text-base font-bold text-paper">
+                    {initial}
+                  </span>
+                  <div className="text-left">
+                    <p className="text-sm font-semibold text-ink">
+                      Hi, {firstName}!
+                    </p>
+                    <p className="max-w-56 truncate text-xs text-muted">
+                      {session.user.email}
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    className="mt-2 w-full cursor-pointer rounded-full border border-line bg-paper px-4 py-3 font-semibold text-ink transition hover:bg-sand"
+                    onClick={handleSignOut}
+                  >
+                    Log out
+                  </button>
+                </li>
+              </>
             ) : (
               <>
                 <li className="pt-3">
